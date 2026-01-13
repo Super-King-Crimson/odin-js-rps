@@ -26,4 +26,31 @@ function simplifyHumanChoice(humanChoice) {
   else if (humanChoice === "scissors" || humanChoice == "s") return "scissors";
 }
 
-function playRound(humanChoice, computerChoice) {}
+function playRound(humanChoice, computerChoice) {
+  let msg = `Draw! You both played ${humanChoice}`;
+  let draw = true;
+
+  let humanWon;
+
+  if (humanChoice !== computerChoice) {
+    draw = false;
+
+    if (humanChoice === "rock") {
+      humanWon = computerChoice === "scissors";
+    } else if (humanChoice === "paper") {
+      humanWon = computerChoice === "rock";
+    } else if (humanChoice === "scissors") {
+      humanWon = computerChoice === "paper";
+    }
+  }
+
+  if (!draw) {
+    if (humanWon) {
+      msg = `You win! ${humanChoice} beats ${computerChoice}!`;
+    } else {
+      msg = `Tough luck! ${humanChoice} loses to ${computerChoice}.`;
+    }
+  }
+
+  console.log(msg);
+}
