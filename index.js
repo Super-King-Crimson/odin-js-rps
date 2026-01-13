@@ -1,3 +1,6 @@
+let humanScore = 0;
+let computerScore = 0;
+
 function getComputerChoice() {
   let rand = Math.floor(Math.random() * 3);
 
@@ -12,9 +15,15 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-  prompt(
-    "What do you choose, " +
-      "[r]ock, [p]aper, or [s]cissors? " +
-      "(Type an answer in brackets)",
-  );
+  return prompt("What do you choose, [r]ock, [p]aper, or [s]cissors?");
 }
+
+function simplifyHumanChoice(humanChoice) {
+  humanChoice = humanChoice.toLowerCase();
+
+  if (humanChoice === "rock" || humanChoice == "r") return "rock";
+  else if (humanChoice === "paper" || humanChoice == "p") return "paper";
+  else if (humanChoice === "scissors" || humanChoice == "s") return "scissors";
+}
+
+function playRound(humanChoice, computerChoice) {}
