@@ -72,12 +72,14 @@ function playGame() {
     } else {
       console.log(`gg human. i concede to you.`);
     }
-  } else {
+  } else if (computerScore > humanScore) {
     if (computerScore == 5) {
       console.log("hah too ez lolll");
     } else {
       console.log(`good effort. try again, if you dare`);
     }
+  } else {
+    console.log("wth a draw? ok");
   }
 }
 
