@@ -27,7 +27,7 @@ function simplifyHumanChoice(humanChoice) {
 }
 
 function playRound(humanChoice, computerChoice) {
-  let msg = `Draw! You both played ${humanChoice}`;
+  let msg = `draw, both played ${humanChoice}`;
   let draw = true;
 
   let humanWon;
@@ -46,11 +46,21 @@ function playRound(humanChoice, computerChoice) {
 
   if (!draw) {
     if (humanWon) {
-      msg = `You win! ${humanChoice} beats ${computerChoice}!`;
+      msg = `you win, ${humanChoice} beats ${computerChoice}`;
     } else {
-      msg = `Tough luck! ${humanChoice} loses to ${computerChoice}.`;
+      msg = `tough luck, ${humanChoice} loses to ${computerChoice}`;
     }
   }
 
   console.log(msg);
+  return humanWon;
+}
+
+const ITERATIONS = 5;
+for (let i = 0; i < ITERATIONS; i++) {
+  const computerChoice = getComputerChoice();
+  const humanChoice = simplifyHumanChoice(getHumanChoice());
+
+  if (playRound(humanChoice, computerChoice)) humanScore++;
+  else computerScore++;
 }
