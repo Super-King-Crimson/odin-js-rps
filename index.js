@@ -25,24 +25,20 @@ function simplifyHumanChoice(humanChoice) {
 
 function playRound(humanChoice, computerChoice) {
   let msg = `draw, both played ${humanChoice}`;
-  let draw = true;
-
-  let humanWon;
+  let winner = "TIE";
 
   if (humanChoice !== computerChoice) {
-    draw = false;
-
     if (humanChoice === "rock") {
-      humanWon = computerChoice === "scissors";
+      winner = computerChoice === "scissors" ? "HUM" : "COM";
     } else if (humanChoice === "paper") {
-      humanWon = computerChoice === "rock";
+      winner = computerChoice === "rock" ? "HUM" : "COM";
     } else if (humanChoice === "scissors") {
-      humanWon = computerChoice === "paper";
+      winner = computerChoice === "paper" ? "HUM" : "COM";
     }
   }
 
-  if (!draw) {
-    if (humanWon) {
+  if (winner !== "TIE") {
+    if (winner === "HUM") {
       msg = `you win, ${humanChoice} beats ${computerChoice}`;
     } else {
       msg = `tough luck, ${humanChoice} loses to ${computerChoice}`;
@@ -50,7 +46,7 @@ function playRound(humanChoice, computerChoice) {
   }
 
   console.log(msg);
-  return humanWon;
+  return winner;
 }
 
 function playGame() {
@@ -62,8 +58,17 @@ function playGame() {
     const computerChoice = getComputerChoice();
     const humanChoice = simplifyHumanChoice(getHumanChoice());
 
-    if (playRound(humanChoice, computerChoice)) humanScore++;
-    else computerScore++;
+    const result = playRound(humanChoice, computerChoice);
+
+    switch (result) {
+      case "HUM":
+        humanScore++;
+        break;
+
+      case "COM":
+        computerScore++;
+        break;
+    }
   }
 
   if (humanScore > computerScore) {
@@ -81,6 +86,8 @@ function playGame() {
   } else {
     console.log("wth a draw? ok");
   }
+
+  console.log(`FINAL SCORE: ${humanScore} TO ${computerScore}`);
 }
 
 playGame();
