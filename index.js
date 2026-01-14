@@ -1,6 +1,3 @@
-let humanScore = 0;
-let computerScore = 0;
-
 function getComputerChoice() {
   let rand = Math.floor(Math.random() * 3);
 
@@ -56,11 +53,32 @@ function playRound(humanChoice, computerChoice) {
   return humanWon;
 }
 
-const ITERATIONS = 5;
-for (let i = 0; i < ITERATIONS; i++) {
-  const computerChoice = getComputerChoice();
-  const humanChoice = simplifyHumanChoice(getHumanChoice());
+function playGame() {
+  let humanScore = 0;
+  let computerScore = 0;
 
-  if (playRound(humanChoice, computerChoice)) humanScore++;
-  else computerScore++;
+  const ITERATIONS = 5;
+  for (let i = 0; i < ITERATIONS; i++) {
+    const computerChoice = getComputerChoice();
+    const humanChoice = simplifyHumanChoice(getHumanChoice());
+
+    if (playRound(humanChoice, computerChoice)) humanScore++;
+    else computerScore++;
+  }
+
+  if (humanScore > computerScore) {
+    if (humanScore == 5) {
+      console.log("damn i got slammed.");
+    } else {
+      console.log(`gg human. i concede to you.`);
+    }
+  } else {
+    if (computerScore == 5) {
+      console.log("hah too ez lolll");
+    } else {
+      console.log(`good effort. try again, if you dare`);
+    }
+  }
 }
+
+playGame();
