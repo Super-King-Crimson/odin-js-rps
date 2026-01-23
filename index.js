@@ -11,8 +11,25 @@ function getComputerChoice() {
   }
 }
 
-function getHumanChoice() {
-  return prompt("What do you choose, [r]ock, [p]aper, or [s]cissors?");
+const promptParent = document.querySelector(".prompt");
+
+const promptPlay = document.createElement("p");
+promptPlay.innerText = "Which do you choose, human? Rock, paper, or scissors?";
+
+function displayHumanChoicePrompt() {
+  // return prompt("What do you choose, [r]ock, [p]aper, or [s]cissors?");
+
+  if (!document.querySelector(".prompt p")) {
+    promptParent.appendChild(promptPlay);
+  }
+}
+
+function hideHumanChoicePrompt() {
+  // return prompt("What do you choose, [r]ock, [p]aper, or [s]cissors?");
+
+  if (document.querySelector(".prompt p")) {
+    promptParent.removeChild(promptPlay);
+  }
 }
 
 function simplifyHumanChoice(humanChoice) {
@@ -49,45 +66,50 @@ function playRound(humanChoice, computerChoice) {
   return winner;
 }
 
-function playGame() {
-  let humanScore = 0;
-  let computerScore = 0;
+// function playGame() {
+//   let humanScore = 0;
+//   let computerScore = 0;
+//
+//   const ITERATIONS = 5;
+//   for (let i = 0; i < ITERATIONS; i++) {
+//     const computerChoice = getComputerChoice();
+//     const humanChoice = simplifyHumanChoice(getHumanChoice());
+//
+//     const result = playRound(humanChoice, computerChoice);
+//
+//     switch (result) {
+//       case "HUM":
+//         humanScore++;
+//         break;
+//
+//       case "COM":
+//         computerScore++;
+//         break;
+//     }
+//   }
+//
+//   if (humanScore > computerScore) {
+//     if (humanScore == 5) {
+//       console.log("damn i got slammed.");
+//     } else {
+//       console.log(`gg human. i concede to you.`);
+//     }
+//   } else if (computerScore > humanScore) {
+//     if (computerScore == 5) {
+//       console.log("hah too ez lolll");
+//     } else {
+//       console.log(`good effort. try again, if you dare`);
+//     }
+//   } else {
+//     console.log("wth a draw? ok");
+//   }
+//
+//   console.log(`FINAL SCORE: ${humanScore} TO ${computerScore}`);
+// }
+//
+// playGame();
 
-  const ITERATIONS = 5;
-  for (let i = 0; i < ITERATIONS; i++) {
-    const computerChoice = getComputerChoice();
-    const humanChoice = simplifyHumanChoice(getHumanChoice());
-
-    const result = playRound(humanChoice, computerChoice);
-
-    switch (result) {
-      case "HUM":
-        humanScore++;
-        break;
-
-      case "COM":
-        computerScore++;
-        break;
-    }
-  }
-
-  if (humanScore > computerScore) {
-    if (humanScore == 5) {
-      console.log("damn i got slammed.");
-    } else {
-      console.log(`gg human. i concede to you.`);
-    }
-  } else if (computerScore > humanScore) {
-    if (computerScore == 5) {
-      console.log("hah too ez lolll");
-    } else {
-      console.log(`good effort. try again, if you dare`);
-    }
-  } else {
-    console.log("wth a draw? ok");
-  }
-
-  console.log(`FINAL SCORE: ${humanScore} TO ${computerScore}`);
-}
-
-playGame();
+const buttonDiv = document.querySelector(".buttons");
+buttonDiv.addEventListener("click", (e) => {
+  playRound(e.target.className, getComputerChoice());
+});
