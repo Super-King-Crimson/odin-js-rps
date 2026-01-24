@@ -62,8 +62,44 @@ function playRound(humanChoice, computerChoice) {
     }
   }
 
-  console.log(msg);
+  resultP.innerText = msg;
+
   return winner;
+}
+
+const resultP = document.querySelector(".result p");
+const humScoreH2 = document.querySelector(".humscore");
+const comScoreH2 = document.querySelector(".comscore");
+let humScore = 0;
+let comScore = 0;
+let gameEnded = false;
+
+function playGame(humanChoice, computerChoice) {
+  if (gameEnded) return;
+
+  const winner = playRound(humanChoice, computerChoice);
+
+  switch (winner) {
+    case "HUM":
+      humScore++;
+      break;
+    case "COM":
+      comScore++;
+      break;
+  }
+
+  humScoreH2.innerText = "Human: " + humScore;
+  comScoreH2.innerText = "Computer: " + comScore;
+
+  if (humScore >= 5) {
+    humScoreH2.innerText = "Human wins!";
+    comScoreH2.innerText = "Computer loses.";
+    gameEnded = true;
+  } else if (comScore >= 5) {
+    comScoreH2.innerText = "Computer wins!";
+    humScoreH2.innerText = "Human loses.";
+    gameEnded = true;
+  }
 }
 
 // function playGame() {
@@ -110,6 +146,9 @@ function playRound(humanChoice, computerChoice) {
 // playGame();
 
 const buttonDiv = document.querySelector(".buttons");
+// events bubble up!
 buttonDiv.addEventListener("click", (e) => {
-  playRound(e.target.className, getComputerChoice());
+  playGame(e.target.className, getComputerChoice());
 });
+
+displayHumanChoicePrompt();
